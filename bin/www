@@ -1,0 +1,132 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('mongooseapp:server');
+var http = require('http');
+var mongoose = require('mongoose');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+//connect();
+
+//require('../config/mongoose');
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+function listen() {
+  //if (app.get('env') === 'test') return;
+  //app.listen(port);
+  //console.log('Express app started on port ' + port);
+}
+
+function connect() {
+  
+  mongoose.connection
+    .on('error', console.log)
+    .on('disconnected', connect)
+    .once('open', listen);
+  //var connection = require('./config/mongoose');
+  //return connection;
+  // return mongoose.connect(config.db, {
+  //   keepAlive: 1,
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true
+  // });
+  return mongoose.connect(
+    "mongodb+srv://madblake:BfRENT0032mj@cluster0.6h14v.mongodb.net/test?retryWrites=true&w=majority",
+     //"mongodb://madblake:BfRENT0032j.@cluster0-shard-00-00.6h14v.mongodb.net:27017,cluster0-shard-00-01.6h14v.mongodb.net:27017,cluster0-shard-00-02.6h14v.mongodb.net:27017/test?ssl=true&replicaSet=atlas-8mzev4-shard-0&authSource=admin&retryWrites=true&w=majority",
+     {
+       useNewUrlParser: true,
+       //useUnifiedTopology: true,
+       ssl: true,
+     },
+     // {
+     //   useNewUrlParser: true,
+     //   useUnifiedTopology: true,
+     //   useCreateIndex: true,
+     //   ssl: true,
+     // }
+   );
+}
+
