@@ -2,6 +2,10 @@
   "name": "mongooseapp",
   "version": "0.0.0",
   "private": true,
+  "main": "index.js",
+  "repository": "https://github.com/Manelus/proyectoBuscadorPeliculas.git",
+  "author": "Manelus <94968227+Manelus@users.noreply.github.com>",
+  "license": "MIT",
   "scripts": {
     "start": "node ./bin/www",
     "nodemon": "nodemon --inspect ./bin/www"
@@ -13,9 +17,13 @@
     "debug": "~2.6.9",
     "dotenv": "^14.3.2",
     "express": "~4.16.1",
+    "express-session": "^1.17.2",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.8",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

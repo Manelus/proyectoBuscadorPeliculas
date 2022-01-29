@@ -77,5 +77,8 @@ function connect() {
     console.log(e.message);
   }
 }
+//Routing
+const movieRouter = require('./routes/movieRouter');
+app.use('/movies', movieRouter);
 
 module.exports = app;
