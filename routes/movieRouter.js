@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const morgan = require('morgan');
+const axios = require('axios');
 
 const app = express();
 
 //Add datos de prueba
-let movies = [fetch(`https://api.themoviedb.org/3/movie/latest?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`)];
+let movies = axios.get(`https://api.themoviedb.org/3/movie/latest?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`);
 
 //ENDPOINTS CRUD-------------------------------------------------------------------------------
 //Metodo GET - READ ALL
