@@ -38,7 +38,7 @@ router.get('/get/:id', auth, async function(req, res) {
 
 router.post('/register', async (req, res, next) => {
   // TODO: Recibo los datos por body
-  const {email, name, password} = {...req.body.user};
+  const {email, name, password} = {...req.body};
   
   //TODO: Valido los datos recibidos. Si son incorrectos, devuelvo ko
   // TODO: Valido que el correo no existe
@@ -111,8 +111,8 @@ router.delete('/address/:id', auth, async (req, res, next) => {
 router.get('/create/', async function(req, res) {
   
   const usersData = [{
-      name: "Jordi Valentín",
-      email: 'test4@test.com',
+      name: "Manel Barreda",
+      email: 'test2@test.com',
       password: '123456',
       address: [
         {street: 'Calle a', zip: '08010', city: 'Barcelona', country: 'España'},

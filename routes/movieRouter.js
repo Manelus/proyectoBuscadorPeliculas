@@ -5,30 +5,31 @@ const axios = require('axios');
 
 const app = express();
 
-//Add datos de prueba
-let movies = axios.get(`https://api.themoviedb.org/3/movie/latest?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`);
-
-//ENDPOINTS CRUD-------------------------------------------------------------------------------
 //Metodo GET - READ ALL
-router.get('/', (req, res) => {
-    let date = new Date();
-    res.json(movies);
+router.get('/', async (req, res) => {
+    let movies = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`);
+    peliculas = movies.data.results;
+    res.json({message: peliculas});
 });
 
 //Metodo GET - READ por ID
-router.get('/:id', (req, res) => {
+router.get('/id/:id', async (req, res) => {
     //const id = rep.params.id;
-    const {id} = req.params;
-    let movie = movies.find(movie => movie.id == id);
-    res.json(movie);
+    const idFilm = req.params.id;
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${idFilm}?api_key=cea68b520beecac6718820e4ac576c3a`);
+    film = response.data;
+    res.json(film);
 });
 
 //Metodo GET - READ por TITLE
-router.get('/:title', (req, res) => {
+router.get('/title/:title', async (req, res) => {
     //const id = rep.params.id;
-    const {title} = req.params;
-    let movie = movies.find(movie => movie.title == title);
-    res.json(movie);
+    let response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`);
+    films = response.data.results;
+    filmsList = films.filter((film) =>
+        film.title.toLowerCase().indexOf(req.params.title.toLowerCase()) !== -1
+    );
+    res.json(filmsList);
 });
 
 module.exports = router;

@@ -4,7 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
+//Inport Routing
+var movieRouter = require("./routes/movieRouter");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -25,9 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+//Load Routing 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/movies", movieRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -42,7 +44,8 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  //res.render("error");
+  res.json({error: "error"});
 });
 
 function listen() {
@@ -59,26 +62,10 @@ function connect() {
       .once("open", listen);
     var connection = require('./config/mongoose');
     return connection;
-    // return mongoose.connect(config.db, {
-    //   keepAlive: 1,
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true
-    // });
-    // return mongoose.connect(
-    //   "mongodb+srv://madblake:BfRENT0032mj@cluster0.6h14v.mongodb.net/test?retryWrites=true&w=majority",
-    //   //"mongodb://madblake:BfRENT0032j.@cluster0-shard-00-00.6h14v.mongodb.net:27017,cluster0-shard-00-01.6h14v.mongodb.net:27017,cluster0-shard-00-02.6h14v.mongodb.net:27017/test?ssl=true&replicaSet=atlas-8mzev4-shard-0&authSource=admin&retryWrites=true&w=majority",
-    //   {
-    //     useNewUrlParser: true,
-    //     //useUnifiedTopology: true,
-    //     ssl: true,
-    //   }
-    //);
   } catch (e) {
     console.log(e.message);
   }
 }
-//Routing
-const movieRouter = require('./routes/movieRouter');
-app.use('/movies', movieRouter);
+
 
 module.exports = app;
