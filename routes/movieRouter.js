@@ -15,21 +15,21 @@ router.get('/', async (req, res) => {
 //Metodo GET - READ por ID
 router.get('/id/:id', async (req, res) => {
     //const id = rep.params.id;
-    const idFilm = req.params.id;
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${idFilm}?api_key=cea68b520beecac6718820e4ac576c3a`);
-    film = response.data;
-    res.json(film);
+    const idMovies = req.params.id;
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${idMovies}?api_key=cea68b520beecac6718820e4ac576c3a`);
+    movies = response.data;
+    res.json(movies);
 });
 
 //Metodo GET - READ por TITLE
 router.get('/title/:title', async (req, res) => {
     //const id = rep.params.id;
     let response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`);
-    films = response.data.results;
-    filmsList = films.filter((film) =>
-        film.title.toLowerCase().indexOf(req.params.title.toLowerCase()) !== -1
+    movies = response.data.results;
+    moviesList = movies.filter((movies) =>
+        movies.title.toLowerCase().indexOf(req.params.title.toLowerCase()) !== -1
     );
-    res.json(filmsList);
+    res.json(moviesList);
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const PedidoSchema = require('./schemas/PedidoSchema');
+const pedidoModel = require('./schemas/pedidoModel');
 
-const PedidoModel = mongoose.model('Pedidos', PedidoSchema);
+const PedidoModel = mongoose.model('Pedidos', pedidoModel);
 
 module.exports = PedidoModel;
