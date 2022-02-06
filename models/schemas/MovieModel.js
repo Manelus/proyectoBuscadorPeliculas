@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MovieSchema = new mongoose.Schema({
+const MovieModel = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -28,10 +28,10 @@ const MovieSchema = new mongoose.Schema({
 });
 
 
-PeliculaSchema.methods.toJSON = function () {
-    const movie = this.toObject();
-    return movie ;
+MovieModel.methods.toJSON = function () {
+    const pelicula = this.toObject();
+    return pelicula ;
 }
 
 
-module.exports = MovieSchema;
+module.exports = MovieModel;

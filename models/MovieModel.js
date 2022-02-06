@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const MovieSchema = require('./schemas/MovieSchema');
+const MovieModel = require('./schemas/MovieModel');
 
-const MovieModel = mongoose.model('Movies', MovieSchema);
+const MoviesModel = mongoose.model('Movies', MovieModel);
 
-module.exports = MovieModel;
+module.exports = MoviesModel;

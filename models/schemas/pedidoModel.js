@@ -1,13 +1,12 @@
-
 const mongoose = require("mongoose");
 
-const PedidoSchema = new mongoose.Schema({
+const pedidoModel = new mongoose.Schema({
   idUser: {
     type: String,
     required: true,
     unique: true,
   },
-  idPelicula: {
+  idMovie: {
     type: String,
     required: true,
   },
@@ -19,13 +18,12 @@ const PedidoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-},
-);
+});
 
-PedidoSchema.methods.toJSON = function () {
+pedidoModel.methods.toJSON = function () {
   const pedido = this.toObject();
   delete pedido.__v;
   return pedido;
 }
 
-module.exports = PedidoSchema;
+module.exports = pedidoModel;
