@@ -1,8 +1,11 @@
+const axios = require('axios');
 var express = require('express');
 var router = express.Router();
-var PedidoModel = require('../models/PedidoModel');
-var PeliculaModel = require('../models/PeliculaModel');
-var UserModel = require('../models/UserModel');
+var pedidoModel = require('../models/pedidoModel');
+var MovieModel = require('../models/MovieModel');
+var UserModel = require('../models/User');
+var users = require('./users');
+var movies = require('./movieRouter');
 
 const auth = require('../middleware/auth'); 
 
@@ -10,17 +13,16 @@ const auth = require('../middleware/auth');
 // GET: pedidos
 router.post('/', auth, async function(req, response, next) {
     // Recibo los datos por body
-    const {idUser, idPelicula} = req.body;
+    const {idUser, idMovie} = req.body;
     // Valido los datos recibidos. Si son incorrectos, devuelvo no
     // Valido que el correo no existe
     try {
-        const pelicula = await PeliculaModel.findById(idPelicula);
-        let resultPelicula = (pelicula !== null) ? pelicula: {};
+        const movie = await axios.get(`https://api.themoviedb.org/3/movie/${idMovie}?api_key=cea68b520beecac6718820e4ac576c3a`);
+        let resultMovie = (movie !== null) ? movie: {};
         
         const user = await UserModel.findById(idUser);
         let resultUser = (user !== null) ? user: {};
-
-        if (Object.keys(resultUser).length === 0 || Object.keys(resultPelicula).length === 0) {
+        if (Object.keys(resultUser).length === 0 || Object.keys(resultMovie).length === 0) {
            return response.status(400).json({});
         }
     
@@ -40,7 +42,7 @@ router.post('/', auth, async function(req, response, next) {
         const tomorrow = `${dd}-${mm}-${yyyy}`;
 
          // Guardo los datos
-        const pedido = await PedidoModel.create({idUser: idUser, idPelicula: idPelicula, rentalDate: today, returnDate: tomorrow})
+        const pedido = await pedidoModel.create({idUser: idUser, idMovie: idMovie, rentalDate: today, returnDate: tomorrow})
         // Respondo ok o ko
 
         return response.json({message: "Pedido relized."})
