@@ -60,7 +60,7 @@ router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body
     const user = await User.findByCredentials(email, password)
-    if (!user) {
+    if (user) {
        return res.status(401).send({error: 'Login failed! Check authentication credentials'})
     }
     const token = await user.generateAuthToken()
@@ -82,7 +82,7 @@ router.get('/profile', auth, async (req, res, next) => {
 
 router.delete('/delete/:id', auth, async (req, res, next) => {
   // TODO: Only user who has admin role;
-  const result = User.remove({_id: req.params.id});
+  const result = await User.remove({_id: req.params.id});
   res.status(501).json({});
 });
 
