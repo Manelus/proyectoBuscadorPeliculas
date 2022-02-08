@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "main": "index.js",
-  "repository": "https://github.com/Manelus/proyectoBuscadorPeliculas.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manelus/proyectoBuscadorPeliculas.git"
+  },
   "author": "Manelus <94968227+Manelus@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
@@ -26,5 +29,10 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "description": "En este trabajo se han usado las tecnologias:</br>\r -ES6</br>\r -NodeJS</br>\r -Express</br>\r -API(Moviedb)</br>\r -Git\r -Postman",
+  "bugs": {
+    "url": "https://github.com/Manelus/proyectoBuscadorPeliculas/issues"
+  },
+  "homepage": "https://github.com/Manelus/proyectoBuscadorPeliculas#readme"
 }
