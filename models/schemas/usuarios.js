@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-//const tokensSchema = new mongoose.Schema({ value: String, created_at: Date });
-//const addressSchema = new mongoose.Schema({street: String, zip: String, city: String, country: String})
-//const User = require('../User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 

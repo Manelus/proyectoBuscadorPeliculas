@@ -5,10 +5,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 //Inport Routing
-var movieRouter = require("./routes/movieRouter");
+var movieRouter = require("./routes/movies");
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var pedidosRouter = require("./routes/pedidos");
+var usersRouter = require("./routes/usuarios");
+var pedidoRouter = require("./routes/pedidos");
 
 require('dotenv').config();
 
@@ -17,6 +17,7 @@ console.log(process.env.PORT)
 connect();
 
 var app = express();
+const PORT = process.env.PORT || 3000;
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -31,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/movies", movieRouter);
-app.use("/pedido", pedidosRouter);
+app.use("/pedidos", pedidoRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,9 +52,7 @@ app.use(function (err, req, res, next) {
 });
 
 function listen() {
-  //if (app.get('env') === 'test') return;
-  //app.listen(port);
-  //console.log('Express app started on port ' + port);
+  PORT, () => { console.log(`App corriendo en el puerto: ${PORT}`)}
 }
 
 function connect() {
