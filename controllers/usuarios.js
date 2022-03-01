@@ -55,7 +55,7 @@ UsersController.userLogin = async (req, res) => {
 
 UsersController.logout = async (req, res, next) => { 
     try {
-      const deleteToken = await token.destroy({
+      const deleteToken = await tokens.destroy({
         where: {
           id: req.user.id
         }
