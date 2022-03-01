@@ -5,6 +5,13 @@ var UserModel = require('../models/usuarios');
 
 const pedidoController = {};
 
+
+pedidoController.getAll = async function (req, res) {
+    const pedido = await pedidoModel.findAll();
+    let result = (pedido !== null)? pedido: {};
+    res.status(200).json(result);
+}
+
 pedidoController.getByTitle = async function(req, res, next) {
     const {idUser, idMovie} = req.body;
     
